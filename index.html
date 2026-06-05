@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#FDFCFA" />
 <title>Takeda OS · Leadership Animated Pre-read</title>
 <meta name="description" content="Takeda OS Leadership pre-read: six-page audio-synced executive briefing on enterprise learning, ontology, platform reuse and 10-agent demo." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,8 +30,9 @@
   --radius-sm:14px; --radius-md:22px; --radius-lg:32px; --radius-xl:42px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden}
-body{font-family:var(--sans);background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;font-feature-settings:"ss01","cv01","cv11"}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+@supports (height:100dvh){html,body{height:100dvh}}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;font-feature-settings:"ss01","cv01","cv11";-webkit-tap-highlight-color:transparent}
 ::selection{background:rgba(230,0,18,.14);color:var(--navy)}
 
 /* === BACKGROUND LAYERS (subtle, won't compete with UI) === */
@@ -295,9 +297,199 @@ body{font-family:var(--sans);background:var(--cream);color:var(--ink);-webkit-fo
 .noscript{position:fixed;inset:auto 20px 20px 20px;z-index:99;background:#fff;padding:12px;border-radius:12px;color:var(--navy)}
 
 /* === RESPONSIVE === */
+/* Very large screens / TVs — cap content so it stays readable, never stretched across full ultra-wide */
+@media (min-width:1920px){
+  .topbar,.footer{padding-left:clamp(40px,4vw,96px);padding-right:clamp(40px,4vw,96px)}
+  .stage{display:flex;justify-content:center}
+  .slide{max-width:1920px;width:100%;margin:0 auto;padding:clamp(40px,3.6vw,80px) clamp(60px,5vw,140px) clamp(32px,3vw,60px)}
+  .visual{max-height:min(720px,72vh)}
+  .title{font-size:clamp(56px,3.6vw,84px)}
+  .subtitle{font-size:clamp(17px,1.2vw,22px);max-width:760px}
+}
+@media (min-width:2400px){
+  .slide{max-width:2200px}
+  .title{font-size:clamp(64px,3.2vw,96px)}
+}
+
+/* Tablet landscape and small desktops — preserved behaviour with safer sizing */
 @media (max-width:1120px){.slide{grid-template-columns:1fr;align-items:start;overflow:auto;padding:28px}.visual{min-height:460px;height:460px}.title{font-size:42px}.beats{grid-template-columns:1fr}.top-note{display:none}.footer{grid-template-columns:1fr;gap:8px;padding:10px 18px}.agt-stage{transform:scale(.82);transform-origin:center}.learn-pipe{grid-template-columns:repeat(2,1fr)}.r-layer{grid-template-columns:1fr}}
 @media (max-height:820px) and (min-width:1121px){.slide{padding-top:28px;padding-bottom:22px}.visual{min-height:470px;max-height:490px}.title{font-size:clamp(34px,4.2vw,54px)}.subtitle{font-size:15px;margin-top:14px}.beats{margin-top:16px}.beat{min-height:44px;padding-top:9px;padding-bottom:9px}.hero-orb{width:190px;height:190px;font-size:25px}.eco-hub{width:140px;height:140px;font-size:16px;margin:-70px 0 0 -70px}.eco-node{width:96px;font-size:9.5px;padding:8px 9px}.eco-node.func{width:90px;font-size:9.5px}.onto-core{width:148px;height:148px;font-size:21px;margin:-74px 0 0 -74px}.onto-node{min-width:96px;padding:8px 11px;font-size:10.5px}.l-step{padding:11px 12px 10px}.l-step-name{font-size:13px}.l-step-text{font-size:10px}.l-passport{padding:13px 16px;gap:14px}.l-passport-icon{width:38px;height:38px;font-size:17px}.l-passport-content h4{font-size:16px}.l-passport-content p{font-size:10.5px}.r-layer{padding:13px 18px;grid-template-columns:170px 1fr auto}.r-layer-name{font-size:17px}.r-chip{font-size:9px;padding:5px 9px}.agt-manager{width:128px;height:128px;font-size:16px;margin:-64px 0 0 -64px}.agt-node{width:104px;padding:8px 10px}.agt-node-name{font-size:10px}.agt-stage{gap:14px;grid-template-columns:minmax(0,1fr) 200px}.agt-output{padding:14px}.agt-output h4{font-size:15px}.agt-output li{font-size:10.5px}.hero-kpi{display:none}.hero-chip{padding:8px 11px;font-size:10px}}
-@media (max-width:720px){.brand-title{display:none}.slide{padding:20px}.visual{min-height:400px;height:400px}.topbar{height:60px}.app{grid-template-rows:60px minmax(0,1fr) auto}.title{font-size:36px}.subtitle{font-size:14.5px}.start-card{padding:32px 22px}.agt-output{display:none}.eco-node{transform:translate(-50%,-50%) scale(.7)}}
+
+/* Tablet portrait — fluid heights, no fixed visual height */
+@media (max-width:960px){
+  .visual{min-height:50vh;height:auto;max-height:62vh}
+  .footer{padding:10px 20px;gap:10px}
+  .controls{justify-content:center;flex-wrap:wrap;gap:8px}
+  .pager{text-align:center}
+  .agt-stage{transform:none;grid-template-columns:1fr;gap:14px}
+  .agt-network{min-height:340px}
+  .agt-output{margin-top:6px}
+}
+
+/* === MOBILE (large phones) === */
+@media (max-width:720px){
+  .brand-title{display:none}
+  .top-note{display:none}
+  .topbar{height:56px;padding:0 14px}
+  .topbar:after{display:none}
+  .brand-mark,.brand-mark img{height:28px}
+  .app{grid-template-rows:56px minmax(0,1fr) auto;padding-bottom:env(safe-area-inset-bottom,0)}
+
+  /* Slide — stack copy above visual, allow internal scroll */
+  .slide{grid-template-columns:1fr;grid-template-rows:auto auto;align-items:start;align-content:start;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:18px 16px 26px;gap:18px}
+  .copy{order:1}
+  .visual{order:2}
+  .copy:before{display:none}
+  .num{margin-bottom:8px}
+  .kicker{margin-bottom:12px;font-size:9.5px}
+  .title{font-size:clamp(26px,7vw,34px);line-height:1.04;letter-spacing:-.03em;max-width:100%}
+  .subtitle{font-size:14.5px;line-height:1.55;margin-top:14px;max-width:100%}
+  .beats{margin-top:18px;gap:8px;grid-template-columns:1fr;max-width:100%}
+  .beat{font-size:12.5px;min-height:46px;padding:11px 12px 11px 40px;font-weight:700}
+  .beat:before{left:14px;width:8px;height:8px;margin-top:-4px}
+
+  /* Visual — flexible height, never overflow */
+  .visual{min-height:54vh;height:auto;max-height:none;border-radius:24px}
+  .v-label{top:18px;left:18px;font-size:8.5px}
+  .v-meta{top:16px;right:16px;padding:5px 10px;font-size:8.5px}
+
+  /* Scene 1 — Hero */
+  .hero-orb{width:150px;height:150px;font-size:22px}
+  .hero-orb:before{inset:-12px}
+  .hero-orb:after{inset:-28px}
+  .hero-chip{padding:6px 9px;font-size:9.5px;border-radius:10px}
+  .hero-chip .dot{width:5px;height:5px;margin-right:5px;box-shadow:0 0 0 2px rgba(230,0,18,.12)}
+  .hero-kpi{display:none}
+
+  /* Scene 2 — Ecosystem */
+  .eco-stage{inset:50px 12px 24px}
+  .eco-hub{width:110px;height:110px;font-size:13px;margin:-55px 0 0 -55px}
+  .eco-node{width:76px;font-size:8.5px;padding:6px 7px;line-height:1.12;transform:translate(-50%,-50%) scale(.92)}
+  .eco-node.func{width:70px;font-size:8.5px;padding:6px 6px}
+  .eco-legend{font-size:8px;gap:10px;left:14px;bottom:8px}
+
+  /* Scene 3 — Ontology */
+  .onto-stage{inset:48px 12px 16px}
+  .onto-core{width:120px;height:120px;font-size:17px;margin:-60px 0 0 -60px}
+  .onto-node{min-width:80px;padding:7px 9px;font-size:10px}
+  .onto-node .cat{font-size:6.5px}
+
+  /* Scene 4 — Learning */
+  .learn-stage{inset:50px 14px 18px;gap:10px}
+  .learn-pipe{grid-template-columns:repeat(2,1fr);gap:8px}
+  .learn-pipe:before{display:none}
+  .l-step{padding:10px 11px 10px}
+  .l-step-name{font-size:12.5px}
+  .l-step-text{font-size:10px;line-height:1.35}
+  .l-passport{padding:12px 14px;gap:10px;grid-template-columns:auto 1fr;align-items:center}
+  .l-passport-icon{width:36px;height:36px;font-size:16px}
+  .l-passport-content h4{font-size:14.5px}
+  .l-passport-content p{font-size:10.5px;max-width:none}
+  .l-passport-meta{display:none}
+
+  /* Scene 5 — Reuse */
+  .reuse-stage{inset:54px 16px 18px;gap:10px}
+  .r-layer{padding:11px 14px;gap:8px;grid-template-columns:1fr;align-items:start}
+  .r-layer-name{font-size:14.5px;padding-left:10px}
+  .r-chips{gap:5px}
+  .r-chip{font-size:9px;padding:4px 8px}
+  .r-flow-icon{display:none}
+
+  /* Scene 6 — Agents */
+  .agt-stage{inset:50px 14px 14px;grid-template-columns:1fr;transform:none;gap:12px}
+  .agt-network{min-height:360px}
+  .agt-manager{width:108px;height:108px;font-size:13px;margin:-54px 0 0 -54px}
+  .agt-node{width:90px;padding:6px 8px}
+  .agt-node-name{font-size:9.5px;line-height:1.15}
+  .agt-node-id{font-size:7px}
+  .agt-node-status{font-size:6.5px;margin-top:3px}
+  .agt-output{display:none}
+
+  /* Footer — touch friendly, multi-row */
+  .footer{grid-template-columns:1fr;grid-template-rows:auto auto;gap:8px;padding:10px 12px calc(12px + env(safe-area-inset-bottom,0))}
+  .controls{order:2;justify-content:space-between;gap:6px;width:100%}
+  .controls > *{flex:0 1 auto}
+  .btn{padding:11px 16px;font-size:12.5px;min-height:44px;min-width:44px;border-radius:999px}
+  .btn.secondary{padding:11px 16px}
+  .audio-viz{display:none}
+  .meter{height:5px}
+  .scene-dots{margin-top:5px}
+  .pager{position:absolute;top:-22px;right:14px;font-size:10px;background:rgba(255,255,255,.85);padding:3px 8px;border-radius:999px;border:1px solid var(--line)}
+
+  /* Start screen */
+  .start{padding:20px}
+  .start-card{padding:36px 22px;border-radius:28px}
+  .start-eyebrow{font-size:9.5px}
+  .start-title{font-size:clamp(34px,9.5vw,48px)}
+  .start-sub{font-size:14.5px;margin:18px auto 28px}
+  .start-btn{font-size:14px;padding:14px 26px}
+}
+
+/* === SMALL PHONES === */
+@media (max-width:480px){
+  .topbar{height:52px;padding:0 12px}
+  .app{grid-template-rows:52px minmax(0,1fr) auto}
+  .brand-mark,.brand-mark img{height:24px}
+
+  .slide{padding:14px 12px 22px;gap:14px}
+  .title{font-size:clamp(22px,7vw,28px)}
+  .subtitle{font-size:13.5px;margin-top:12px}
+  .beat{font-size:12px;min-height:44px}
+
+  .visual{min-height:48vh;border-radius:20px}
+
+  .hero-orb{width:128px;height:128px;font-size:18px}
+  .hero-chip{padding:5px 7px;font-size:8.5px}
+
+  .eco-hub{width:96px;height:96px;font-size:11.5px;margin:-48px 0 0 -48px}
+  .eco-node{width:68px;font-size:8px;padding:5px 6px}
+  .eco-node.func{width:64px;font-size:7.5px}
+
+  .onto-core{width:100px;height:100px;font-size:14px;margin:-50px 0 0 -50px}
+  .onto-node{min-width:72px;font-size:9.5px;padding:6px 7px}
+
+  .learn-pipe{grid-template-columns:repeat(2,1fr)}
+  .l-step-name{font-size:11.5px}
+
+  .r-layer-name{font-size:13.5px}
+  .r-chip{font-size:8.5px;padding:3px 7px}
+
+  .agt-network{min-height:320px}
+  .agt-manager{width:90px;height:90px;font-size:11.5px;margin:-45px 0 0 -45px}
+  .agt-node{width:78px;padding:5px 6px}
+  .agt-node-name{font-size:8.5px}
+
+  .btn{padding:10px 12px;font-size:11.5px}
+  .btn.secondary{padding:10px 12px}
+}
+
+/* === LANDSCAPE PHONE — short viewports === */
+@media (max-height:520px) and (orientation:landscape){
+  .topbar{height:44px}
+  .app{grid-template-rows:44px minmax(0,1fr) auto}
+  .brand-mark,.brand-mark img{height:24px}
+  .slide{grid-template-columns:minmax(260px,1fr) minmax(320px,1.2fr);grid-template-rows:1fr;padding:14px 18px;gap:18px;overflow:hidden}
+  .copy{order:0}
+  .visual{order:0;min-height:auto;height:100%;max-height:none;border-radius:20px}
+  .title{font-size:clamp(20px,3.4vw,28px)}
+  .subtitle{font-size:12.5px;margin-top:8px;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .beats{margin-top:10px;gap:6px;grid-template-columns:1fr 1fr}
+  .beat{min-height:36px;font-size:11px;padding:6px 10px 6px 32px}
+  .beat:before{left:10px;width:6px;height:6px;margin-top:-3px}
+  .hero-orb{width:120px;height:120px;font-size:18px}
+  .hero-kpi{display:none}
+  .footer{padding:6px 12px calc(6px + env(safe-area-inset-bottom,0));grid-template-rows:auto}
+  .btn{padding:8px 14px;min-height:36px;font-size:11.5px}
+  .pager{position:static;background:none;border:0;padding:0}
+}
+
+/* === HOVER REFINEMENTS — disable scale on touch devices to avoid sticky hover === */
+@media (hover:none){
+  .btn:hover{transform:none;box-shadow:0 4px 16px rgba(7,19,38,.12)}
+  .btn.secondary:hover{background:rgba(9,21,39,.05);border-color:var(--line)}
+  .start-btn:hover{transform:none;box-shadow:var(--shadow-red)}
+}
+
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition:none!important}}
 </style>
 </head>
